@@ -1,30 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios</title>
+    <title>Usuarios Registrados</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #fcb247">
-        <div class="container-fluid ">
-            <a class="navbar-brand" href="#"> <img src="./assets/Default_Create_a_logo_for_a_motorcycle_company_the_company_wil_2_9c920c92-36fe-4458-9f99-e232ced6a79f_0.png" width="300px"></a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <h1>Motos Rioja</h1>
+    <nav class="navbar navbar-expand-lg" style="background-color: #fcb247">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./assets/Default_Create_a_logo_for_a_motorcycle_company_the_company_wil_2_9c920c92-36fe-4458-9f99-e232ced6a79f_0.png" alt="motos" width="250px">
+            </a>
+            <h1>Motos Rioja</h1>
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <p><a href="./crearusuario.html" class="link-underline-warning">Crear usuario</a></p>
+                        <a href="./crearusuario.html" class="link-underline-warning">Crear Usuario</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    
-    
+
     <div class="container mt-5">
         <h2>Usuarios Registrados</h2>
         <div class="row" id="usuariosContainer"></div>
@@ -32,28 +30,35 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-            const usuariosContainer = document.getElementById('usuariosContainer');
+            let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            let usuariosContainer = document.getElementById('usuariosContainer');
 
             if (usuarios.length === 0) {
                 usuariosContainer.innerHTML = '<p>No hay usuarios registrados.</p>';
                 return;
             }
 
-            usuarios.forEach(usuario => {
-                const card = document.createElement('div');
-                card.className = 'col-md-4 mb-3';
-                card.innerHTML = `
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">${usuario.nombre}</h5>
-                            <p class="card-text">Correo: ${usuario.correo}</p>
-                        </div>
+            for (let i = 0; i < usuarios.length; i++) {
+                var usuario = usuarios[i];
+                
+                let colDiv = document.createElement('div');
+                colDiv.className = 'col-md-4 mb-3';
+
+                let cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+
+                cardDiv.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title">${usuario.nombre}</h5>
+                        <p class="card-text">Correo: ${usuario.correo}</p>
                     </div>
                 `;
-                usuariosContainer.appendChild(card);
-            });
+
+                colDiv.appendChild(cardDiv);
+                usuariosContainer.appendChild(colDiv);
+            }
         });
     </script>
 </body>
 </html>
+
